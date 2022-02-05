@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/register1_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,8 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               width: 250.0,
               child: ElevatedButton(
-                onPressed: () {},
-                child: Text('Lets Go'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Register1Screen()));
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.pinkAccent)),
+                child: Text('Let s Go!'),
               ),
             ),
             Image.network(
