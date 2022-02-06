@@ -8,6 +8,10 @@ class RegisterSelection extends StatefulWidget {
 }
 
 class _RegisterSelectionState extends State<RegisterSelection> {
+  Icon _iconWaterChange = Icon(Icons.circle_outlined);
+  Icon _iconElectricChange = Icon(Icons.circle_outlined);
+  Icon _iconFireChange = Icon(Icons.circle_outlined);
+  Icon _iconNormalChange = Icon(Icons.circle_outlined);
   // String _search;
 
   // Future<Map> _getSearch() async {
@@ -22,8 +26,6 @@ class _RegisterSelectionState extends State<RegisterSelection> {
 
   @override
   Widget build(BuildContext context) {
-    Color _iconColor = Colors.black;
-
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -32,107 +34,135 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           ),
           centerTitle: true,
           backgroundColor: Colors.blueAccent),
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.1, 0.5, 0.7, 0.9],
-          colors: [Colors.blue, Colors.yellow, Colors.red, Colors.black54],
-        )),
-        child: Column(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Image.network(
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1024px-Pok%C3%A9mon_Water_Type_Icon.svg.png',
-                    width: 55.0,
-                  ),
-                  Text('Water'),
-                  Padding(
-                    padding: EdgeInsets.only(left: 260.0),
-                    child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.circle_outlined)),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Image.network(
-                    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0726fbdd-a6a6-4871-bed6-e8e0b9ce2af0/d60gfay-102b7c11-ba4f-4699-8928-602bf50316fc.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA3MjZmYmRkLWE2YTYtNDg3MS1iZWQ2LWU4ZTBiOWNlMmFmMFwvZDYwZ2ZheS0xMDJiN2MxMS1iYTRmLTQ2OTktODkyOC02MDJiZjUwMzE2ZmMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.9o9pZJkp1g9LKEqme46BEsD4LOeRv5yB7z0Avko4SG0',
-                    width: 55.0,
-                  ),
-                  Text('Electric'),
-                  Padding(
-                    padding: EdgeInsets.only(left: 250.0),
-                    child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.circle_outlined)),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Image.network(
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg/2048px-Pok%C3%A9mon_Fire_Type_Icon.svg.png',
-                    width: 55.0,
-                  ),
-                  Text('Fire'),
-                  Padding(
-                    padding: EdgeInsets.only(left: 272.0),
-                    child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.circle_outlined)),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Image.network(
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg/512px-Pok%C3%A9mon_Dragon_Type_Icon.svg.png',
-                    width: 55.0,
-                  ),
-                  Text('Normal'),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 250.0),
-                    child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _iconColor = Colors.yellow;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.circle_outlined,
-                          color: _iconColor,
-                        )),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Confirm!',
-                  style: TextStyle(color: Colors.white),
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1024px-Pok%C3%A9mon_Water_Type_Icon.svg.png',
+                  width: 55.0,
                 ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.pinkAccent)),
+                Text('Water'),
+                Padding(
+                  padding: EdgeInsets.only(left: 260.0),
+                  child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _iconWaterChange = Icon(Icons.circle_rounded);
+                        });
+                      },
+                      icon: _iconWaterChange),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Image.network(
+                  'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0726fbdd-a6a6-4871-bed6-e8e0b9ce2af0/d60gfay-102b7c11-ba4f-4699-8928-602bf50316fc.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA3MjZmYmRkLWE2YTYtNDg3MS1iZWQ2LWU4ZTBiOWNlMmFmMFwvZDYwZ2ZheS0xMDJiN2MxMS1iYTRmLTQ2OTktODkyOC02MDJiZjUwMzE2ZmMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.9o9pZJkp1g9LKEqme46BEsD4LOeRv5yB7z0Avko4SG0',
+                  width: 55.0,
+                ),
+                Text('Electric'),
+                Padding(
+                  padding: EdgeInsets.only(left: 250.0),
+                  child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _iconElectricChange = Icon(Icons.circle_rounded);
+                        });
+                      },
+                      icon: _iconElectricChange),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg/2048px-Pok%C3%A9mon_Fire_Type_Icon.svg.png',
+                  width: 55.0,
+                ),
+                Text('Fire'),
+                Padding(
+                  padding: EdgeInsets.only(left: 272.0),
+                  child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _iconFireChange = Icon(Icons.circle_rounded);
+                        });
+                      },
+                      icon: _iconFireChange),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg/512px-Pok%C3%A9mon_Dragon_Type_Icon.svg.png',
+                  width: 55.0,
+                ),
+                Text('Normal'),
+                Padding(
+                  padding: EdgeInsets.only(left: 250.0),
+                  child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _iconNormalChange = Icon(Icons.circle_rounded);
+                        });
+                      },
+                      icon: _iconNormalChange),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Confirm!',
+                style: TextStyle(color: Colors.white),
               ),
-              width: 300.0,
-            )
-          ],
-        ),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.pinkAccent)),
+            ),
+            width: 300.0,
+          ),
+        ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ListView(
 //             children: [
 //               ListTile(
