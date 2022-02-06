@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/register2_screen.dart';
 
 class Register1Screen extends StatefulWidget {
-  const Register1Screen({Key? key}) : super(key: key);
+  const Register1Screen({Key key}) : super(key: key);
 
   @override
   _Register1ScreenState createState() => _Register1ScreenState();

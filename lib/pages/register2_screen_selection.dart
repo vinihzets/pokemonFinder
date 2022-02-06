@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/home.dart';
 
 class RegisterSelection extends StatefulWidget {
-  const RegisterSelection({Key? key}) : super(key: key);
+  const RegisterSelection({Key key}) : super(key: key);
 
   @override
   State<RegisterSelection> createState() => _RegisterSelectionState();
@@ -12,17 +13,6 @@ class _RegisterSelectionState extends State<RegisterSelection> {
   Icon _iconElectricChange = Icon(Icons.circle_outlined);
   Icon _iconFireChange = Icon(Icons.circle_outlined);
   Icon _iconNormalChange = Icon(Icons.circle_outlined);
-  // String _search;
-
-  // Future<Map> _getSearch() async {
-  //   http.Response response;
-  //   if (_search == null) {
-  //     response = await http.get('https://pokeapi.co/api/v2/pokemon');
-  //   } else {
-  //     response = await http.get('https://pokeapi.co/api/v2/type=$_search');
-  //   }
-  //   ;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +112,10 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           ),
           SizedBox(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Home()));
+              },
               child: Text(
                 'Confirm!',
                 style: TextStyle(color: Colors.white),

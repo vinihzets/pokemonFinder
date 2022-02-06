@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pages/register2_screen_selection.dart';
 
 class Register2Screen extends StatefulWidget {
-  const Register2Screen({Key? key}) : super(key: key);
+  const Register2Screen({Key key}) : super(key: key);
 
   @override
   _Register2ScreenState createState() => _Register2ScreenState();
