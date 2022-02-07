@@ -11,6 +11,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _search;
+
+  Future<Map> _getPokemons() async {
+    http.Response response;
+
+    if (_search == null) {
+      response = await http.get('https://pokeapi.co/api/v2/type/water');
+    } else {
+      response = await http.get('https://pokeapi.co/api/v2/type');
+    }
+    return json.decode(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getPokemons().then((map) {
+      print(map);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
