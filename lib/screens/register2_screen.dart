@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/register2_screen_selection.dart';
+import 'package:flutter_application_1/pages/register2_selection.dart';
 
 class Register2Screen extends StatefulWidget {
   const Register2Screen({Key key}) : super(key: key);
@@ -14,7 +14,7 @@ class _Register2ScreenState extends State<Register2Screen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.tealAccent[400],
+        backgroundColor: Colors.red[400],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -45,7 +45,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                 icon: const Icon(
                   Icons.next_plan,
                   size: 50.0,
-                  color: Colors.tealAccent,
+                  color: Colors.red,
                 ))
           ],
         ),

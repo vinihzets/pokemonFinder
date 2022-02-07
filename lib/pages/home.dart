@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,18 +10,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _search;
-
-  Future<List> _getPokemons() async {
+  Future<Map> _getPokemons() async {
     http.Response response;
 
-    if (_search == null) {
-      response = await http.get(
-          'https://vortigo.blob.core.windows.net/files/pokemon/data/pokemons.json');
-    } else {
-      response = await http.get(
-          'https://vortigo.blob.core.windows.net/files/pokemon/data/pokemons.json');
-    }
+    response = await http.get(
+        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
 
     return json.decode(response.body);
   }
@@ -33,32 +25,50 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Pokemon Finder', style: TextStyle(fontSize: 15.0)),
         centerTitle: true,
-        backgroundColor: Colors.tealAccent[400],
+        backgroundColor: Colors.red[400],
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: Column(
         children: [
           Row(
             children: [
-              const Padding(padding: EdgeInsets.only(left: 30.0, top: 20.0)),
-              Image.asset(
-                'images/water.png',
-                width: 70.0,
+              const Padding(padding: EdgeInsets.only(left: 25.0, top: 20.0)),
+              IconButton(
+                onPressed: () async {
+                  setState(() {});
+                },
+                icon: Image.asset(
+                  'images/water.png',
+                  width: 80.0,
+                ),
               ),
-              const Padding(padding: EdgeInsets.only(left: 20.0, top: 20.0)),
-              Image.asset(
-                'images/electric.png',
-                width: 70.0,
+              const Padding(padding: EdgeInsets.only(left: 40.0, top: 20.0)),
+              IconButton(
+                onPressed: () async {
+                  setState(() {});
+                },
+                icon: Image.asset(
+                  'images/electric.png',
+                  width: 80.0,
+                ),
               ),
-              const Padding(padding: EdgeInsets.only(left: 20.0, top: 20.0)),
-              Image.asset('images/fire.png', width: 70.0),
-              const Padding(padding: EdgeInsets.only(left: 20.0, top: 100.0)),
-              Image.asset('images/normal.png', width: 70.0),
+              const Padding(padding: EdgeInsets.only(left: 40.0, top: 20.0)),
+              IconButton(
+                  onPressed: () async {
+                    setState(() {});
+                  },
+                  icon: Image.asset('images/fire.png', width: 500.0)),
+              const Padding(padding: EdgeInsets.only(left: 35.0, top: 50.0)),
+              IconButton(
+                  onPressed: () async {
+                    setState(() {});
+                  },
+                  icon: Image.asset('images/normal.png', width: 80.0)),
             ],
           ),
           Row(
             children: const [
-              Padding(padding: EdgeInsets.only(left: 35.0)),
+              Padding(padding: EdgeInsets.only(left: 20.0)),
               Text('Water', style: TextStyle(fontSize: 20.0)),
               Padding(
                   padding: EdgeInsets.only(
@@ -87,10 +97,14 @@ class _HomeState extends State<Home> {
             ],
           ),
           Row(children: const [
-            Padding(padding: EdgeInsets.only(top: 100.0)),
-            Expanded(child: Text('Pokémon')),
-            Text('Name'),
-            Icon(Icons.arrow_upward)
+            Expanded(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Text('Pokémon'))),
+            Padding(padding: EdgeInsets.only(top: 20.0), child: Text('Name')),
+            Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Icon(Icons.arrow_upward))
           ]),
           Expanded(
             child: FutureBuilder(
@@ -110,10 +124,11 @@ class _HomeState extends State<Home> {
                         ),
                       );
                     default:
-                      if (snapshot.hasError)
+                      if (snapshot.hasError) {
                         return Container();
-                      else
+                      } else {
                         return _createPokemons(context, snapshot);
+                      }
                   }
                 }),
           ),
@@ -123,24 +138,17 @@ class _HomeState extends State<Home> {
   }
 
   Widget _createPokemons(BuildContext context, AsyncSnapshot snapshot) {
-    return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1, mainAxisSpacing: 0, crossAxisSpacing: 1.0),
-        itemCount: 3,
+    return ListView.builder(
+        itemCount: 25,
         itemBuilder: (context, index) {
           return GestureDetector(
-              child: Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: Image.network(
-                  snapshot.data[index]["thumbnailImage"],
-                  height: 200.0,
-                ),
-              ),
-              Text(snapshot.data[index]["thumbnailAltText"])
-            ],
-          ));
+            child: ListTile(
+                leading: Image.network(snapshot.data["pokemon"][index]["img"]),
+                title: Text(
+                  snapshot.data["pokemon"][index]["name"],
+                  style: const TextStyle(fontSize: 16.0),
+                )),
+          );
         });
   }
 }

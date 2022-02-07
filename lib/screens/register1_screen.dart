@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/register2_screen.dart';
+import 'package:flutter_application_1/screens/register2_screen.dart';
 
 class Register1Screen extends StatefulWidget {
   const Register1Screen({Key key}) : super(key: key);
@@ -12,7 +12,7 @@ class _Register1ScreenState extends State<Register1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.tealAccent[400],
+      backgroundColor: Colors.red[400],
       body: SingleChildScrollView(
         child: Column(
           children: [

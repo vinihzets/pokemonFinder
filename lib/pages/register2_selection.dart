@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterSelection extends StatefulWidget {
   const RegisterSelection({Key key}) : super(key: key);
@@ -23,7 +24,7 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           style: TextStyle(fontSize: 15.0),
         ),
         centerTitle: true,
-        backgroundColor: Colors.tealAccent[400],
+        backgroundColor: Colors.red[400],
       ),
       body: Column(
         children: [
@@ -38,7 +39,8 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                 Padding(
                   padding: const EdgeInsets.only(left: 260.0),
                   child: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await http.get('https://pokeapi.co/api/v2/type/water');
                         setState(() {
                           _iconWaterChange = const Icon(Icons.circle_rounded);
                         });
@@ -59,7 +61,9 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                 Padding(
                   padding: const EdgeInsets.only(left: 250.0),
                   child: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await http
+                            .get('https://pokeapi.co/api/v2/type/electric');
                         setState(() {
                           _iconElectricChange =
                               const Icon(Icons.circle_rounded);
@@ -81,7 +85,8 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                 Padding(
                   padding: const EdgeInsets.only(left: 272.0),
                   child: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await http.get('https://pokeapi.co/api/v2/type/fire');
                         setState(() {
                           _iconFireChange = const Icon(Icons.circle_rounded);
                         });
@@ -102,7 +107,8 @@ class _RegisterSelectionState extends State<RegisterSelection> {
                 Padding(
                   padding: const EdgeInsets.only(left: 250.0),
                   child: IconButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await http.get('https://pokeapi.co/api/v2/type/normal');
                         setState(() {
                           _iconNormalChange = const Icon(Icons.circle_rounded);
                         });
@@ -124,7 +130,7 @@ class _RegisterSelectionState extends State<RegisterSelection> {
               ),
               style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.tealAccent[400])),
+                      MaterialStateProperty.all<Color>(Colors.red[400])),
             ),
             width: 300.0,
           ),
