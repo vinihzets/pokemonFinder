@@ -16,7 +16,13 @@ class _Register2ScreenState extends State<Register2Screen> {
       appBar: AppBar(
         backgroundColor: Colors.red[400],
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  'images/elements.png',
+                ),
+                fit: BoxFit.fill)),
         child: Column(
           children: [
             const Center(
@@ -25,6 +31,7 @@ class _Register2ScreenState extends State<Register2Screen> {
                 child: Text('Hello , trainer DEV!',
                     style: TextStyle(
                         fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
                         color: Colors.black)),
               ),
@@ -32,11 +39,12 @@ class _Register2ScreenState extends State<Register2Screen> {
             const Text(
               '...now tell us which is your favorite pokemon type:',
               style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            const Padding(padding: EdgeInsets.only(top: 20.0, bottom: 220.0)),
+            const Padding(padding: EdgeInsets.only(top: 20.0, bottom: 200.0)),
             IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(

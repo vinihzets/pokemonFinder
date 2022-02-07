@@ -10,12 +10,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _search;
+
   Future<Map> _getPokemons() async {
     http.Response response;
-
-    response = await http.get(
-        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
-
+    if (_search == null) {
+      response = await http.get(
+          'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
+    } else {}
     return json.decode(response.body);
   }
 
@@ -139,7 +141,7 @@ class _HomeState extends State<Home> {
 
   Widget _createPokemons(BuildContext context, AsyncSnapshot snapshot) {
     return ListView.builder(
-        itemCount: 25,
+        itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: ListTile(

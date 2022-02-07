@@ -12,8 +12,14 @@ class _Register1ScreenState extends State<Register1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red[400],
-      body: SingleChildScrollView(
+      backgroundColor: Colors.white,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  'images/treinador2.png',
+                ),
+                fit: BoxFit.cover)),
         child: Column(
           children: [
             const Padding(
@@ -23,22 +29,26 @@ class _Register1ScreenState extends State<Register1Screen> {
                   'Lets meet each other first?',
                   style: TextStyle(
                       fontStyle: FontStyle.italic,
-                      color: Colors.white,
-                      fontSize: 20.0),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0),
                 ),
               ),
             ),
-            const Text('First we need to know your name ...',
+            const Text('Now trainer, tell us your name ...',
                 style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    fontSize: 20.0,
-                    color: Colors.white)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Colors.black)),
             const SizedBox(
                 width: 350.0,
                 child: TextField(
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 )),
-            const Padding(padding: EdgeInsets.only(top: 300.0)),
+            Padding(
+              padding: const EdgeInsets.only(top: 250.0),
+            ),
             IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -47,9 +57,9 @@ class _Register1ScreenState extends State<Register1Screen> {
               icon: const Icon(
                 Icons.next_plan,
                 size: 50.0,
-                color: Colors.white,
+                color: Colors.black,
               ),
-            )
+            ),
           ],
         ),
       ),
