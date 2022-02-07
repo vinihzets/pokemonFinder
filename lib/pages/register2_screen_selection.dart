@@ -9,37 +9,38 @@ class RegisterSelection extends StatefulWidget {
 }
 
 class _RegisterSelectionState extends State<RegisterSelection> {
-  Icon _iconWaterChange = Icon(Icons.circle_outlined);
-  Icon _iconElectricChange = Icon(Icons.circle_outlined);
-  Icon _iconFireChange = Icon(Icons.circle_outlined);
-  Icon _iconNormalChange = Icon(Icons.circle_outlined);
+  Icon _iconWaterChange = const Icon(Icons.circle_outlined);
+  Icon _iconElectricChange = const Icon(Icons.circle_outlined);
+  Icon _iconFireChange = const Icon(Icons.circle_outlined);
+  Icon _iconNormalChange = const Icon(Icons.circle_outlined);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            'Select Your Favorite Type Pokemon!!',
-            style: TextStyle(fontSize: 15.0),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.blueAccent),
+        title: const Text(
+          'Select Your Favorite Type Pokemon!!',
+          style: TextStyle(fontSize: 15.0),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.tealAccent[400],
+      ),
       body: Column(
         children: [
           Expanded(
             child: Row(
               children: [
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1024px-Pok%C3%A9mon_Water_Type_Icon.svg.png',
+                Image.asset(
+                  'images/water.png',
                   width: 55.0,
                 ),
-                Text('Water'),
+                const Text('Water'),
                 Padding(
-                  padding: EdgeInsets.only(left: 260.0),
+                  padding: const EdgeInsets.only(left: 260.0),
                   child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _iconWaterChange = Icon(Icons.circle_rounded);
+                          _iconWaterChange = const Icon(Icons.circle_rounded);
                         });
                       },
                       icon: _iconWaterChange),
@@ -50,17 +51,18 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           Expanded(
             child: Row(
               children: [
-                Image.network(
-                  'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0726fbdd-a6a6-4871-bed6-e8e0b9ce2af0/d60gfay-102b7c11-ba4f-4699-8928-602bf50316fc.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA3MjZmYmRkLWE2YTYtNDg3MS1iZWQ2LWU4ZTBiOWNlMmFmMFwvZDYwZ2ZheS0xMDJiN2MxMS1iYTRmLTQ2OTktODkyOC02MDJiZjUwMzE2ZmMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.9o9pZJkp1g9LKEqme46BEsD4LOeRv5yB7z0Avko4SG0',
+                Image.asset(
+                  'images/electric.png',
                   width: 55.0,
                 ),
-                Text('Electric'),
+                const Text('Electric'),
                 Padding(
-                  padding: EdgeInsets.only(left: 250.0),
+                  padding: const EdgeInsets.only(left: 250.0),
                   child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _iconElectricChange = Icon(Icons.circle_rounded);
+                          _iconElectricChange =
+                              const Icon(Icons.circle_rounded);
                         });
                       },
                       icon: _iconElectricChange),
@@ -71,17 +73,17 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           Expanded(
             child: Row(
               children: [
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg/2048px-Pok%C3%A9mon_Fire_Type_Icon.svg.png',
+                Image.asset(
+                  'images/fire.png',
                   width: 55.0,
                 ),
-                Text('Fire'),
+                const Text('Fire'),
                 Padding(
-                  padding: EdgeInsets.only(left: 272.0),
+                  padding: const EdgeInsets.only(left: 272.0),
                   child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _iconFireChange = Icon(Icons.circle_rounded);
+                          _iconFireChange = const Icon(Icons.circle_rounded);
                         });
                       },
                       icon: _iconFireChange),
@@ -92,17 +94,17 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           Expanded(
             child: Row(
               children: [
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg/512px-Pok%C3%A9mon_Dragon_Type_Icon.svg.png',
+                Image.asset(
+                  'images/normal.png',
                   width: 55.0,
                 ),
-                Text('Normal'),
+                const Text('Normal'),
                 Padding(
-                  padding: EdgeInsets.only(left: 250.0),
+                  padding: const EdgeInsets.only(left: 250.0),
                   child: IconButton(
                       onPressed: () {
                         setState(() {
-                          _iconNormalChange = Icon(Icons.circle_rounded);
+                          _iconNormalChange = const Icon(Icons.circle_rounded);
                         });
                       },
                       icon: _iconNormalChange),
@@ -113,16 +115,16 @@ class _RegisterSelectionState extends State<RegisterSelection> {
           SizedBox(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Home()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Home()));
               },
-              child: Text(
+              child: const Text(
                 'Confirm!',
                 style: TextStyle(color: Colors.white),
               ),
               style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.pinkAccent)),
+                      MaterialStateProperty.all<Color>(Colors.tealAccent[400])),
             ),
             width: 300.0,
           ),
