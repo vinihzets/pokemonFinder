@@ -70,6 +70,10 @@ flutter:
     - images/treinador2.png
     - images/treinador3.png
     - images/elements.png
+    - images/treinador4.png
+    - images/treinador5.png
+    - images/treinador6.png
+    - images/treinador7.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

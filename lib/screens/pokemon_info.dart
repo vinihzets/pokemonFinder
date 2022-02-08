@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PokemonInfo extends StatelessWidget {
-  final Map<dynamic, dynamic> _pokemonInfo;
+  final Map<String, dynamic> _pokemonInfo;
   const PokemonInfo(this._pokemonInfo, {Key key}) : super(key: key);
 
   @override
@@ -19,7 +19,9 @@ class PokemonInfo extends StatelessWidget {
             Image.network(
               _pokemonInfo["img"],
             ),
-            Text(_pokemonInfo["name"], style: TextStyle(fontSize: 25.0))
+            Text(_pokemonInfo["name"], style: TextStyle(fontSize: 25.0)),
+            Text(_pokemonInfo["height"]),
+            Text(_pokemonInfo["weight"])
           ],
         ),
       ),

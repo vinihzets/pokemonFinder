@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
 
   Widget _createPokemons(BuildContext context, AsyncSnapshot snapshot) {
     return ListView.builder(
-        itemCount: 151,
+        itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: ListTile(

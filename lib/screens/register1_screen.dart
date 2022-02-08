@@ -17,9 +17,9 @@ class _Register1ScreenState extends State<Register1Screen> {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                  'images/treinador2.png',
+                  'images/treinador7.png',
                 ),
-                fit: BoxFit.cover)),
+                fit: BoxFit.fill)),
         child: Column(
           children: [
             const Padding(
