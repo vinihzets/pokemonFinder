@@ -9,7 +9,7 @@ class PokemonInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pokemonInfo["name"]),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.red[400],
         centerTitle: true,
       ),
       body: Center(
@@ -19,7 +19,7 @@ class PokemonInfo extends StatelessWidget {
             Image.network(
               _pokemonInfo["img"],
             ),
-            Text(_pokemonInfo["name"], style: TextStyle(fontSize: 25.0)),
+            Text(_pokemonInfo["name"], style: const TextStyle(fontSize: 25.0)),
             Text(_pokemonInfo["height"]),
             Text(_pokemonInfo["weight"])
           ],

@@ -51,6 +51,7 @@ class _Register1ScreenState extends State<Register1Screen> {
             ),
             IconButton(
               onPressed: () {
+                Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Register2Screen()));
               },
