@@ -14,7 +14,7 @@ class _Register1ScreenState extends State<Register1Screen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
                   'images/treinador2.png',
@@ -46,8 +46,8 @@ class _Register1ScreenState extends State<Register1Screen> {
                 child: TextField(
                   style: TextStyle(color: Colors.black),
                 )),
-            Padding(
-              padding: const EdgeInsets.only(top: 250.0),
+            const Padding(
+              padding: EdgeInsets.only(top: 250.0),
             ),
             IconButton(
               onPressed: () {

@@ -17,7 +17,7 @@ class _Register2ScreenState extends State<Register2Screen> {
         backgroundColor: Colors.red[400],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
                   'images/elements.png',

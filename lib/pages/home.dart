@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/pokemon_info.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -10,14 +11,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _search;
-
   Future<Map> _getPokemons() async {
     http.Response response;
-    if (_search == null) {
-      response = await http.get(
-          'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
-    } else {}
+    response = await http.get(
+        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
     return json.decode(response.body);
   }
 
@@ -46,9 +43,7 @@ class _HomeState extends State<Home> {
               ),
               const Padding(padding: EdgeInsets.only(left: 40.0, top: 20.0)),
               IconButton(
-                onPressed: () async {
-                  setState(() {});
-                },
+                onPressed: () {},
                 icon: Image.asset(
                   'images/electric.png',
                   width: 80.0,
@@ -141,11 +136,16 @@ class _HomeState extends State<Home> {
 
   Widget _createPokemons(BuildContext context, AsyncSnapshot snapshot) {
     return ListView.builder(
-        itemCount: 20,
+        itemCount: 151,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: ListTile(
                 leading: Image.network(snapshot.data["pokemon"][index]["img"]),
+                onLongPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          PokemonInfo(snapshot.data["pokemon"][index])));
+                },
                 title: Text(
                   snapshot.data["pokemon"][index]["name"],
                   style: const TextStyle(fontSize: 16.0),
