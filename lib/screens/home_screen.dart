@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const Register1Screen()));
+                        builder: (context) => Register1Screen()));
                   },
                   style: ButtonStyle(
                       backgroundColor:

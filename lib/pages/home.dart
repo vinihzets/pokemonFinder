@@ -1,21 +1,49 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/pokemon_info.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+  final dynamic typepokemon;
+  Home({Key key, this.typepokemon}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
+String typepokemon;
+
+List pokemons = [];
+
 class _HomeState extends State<Home> {
-  Future<Map> _getPokemons() async {
-    http.Response response;
-    response = await http.get(
-        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
-    return json.decode(response.body);
+  http.Response response;
+
+  Future<Map> _getPokes(String typepokemon) async {
+    response = await http
+        .get(Uri.parse('https://pokeapi.co/api/v2/type/$typepokemon'));
+    final map = json.decode(response.body);
+
+    return map;
+  }
+
+  Future<String> _getPokemonIcons(String resp) async {
+    response = await http.get(Uri.parse(resp));
+    final map = json.decode(response.body);
+    return map['sprites']['front_default'];
+  }
+
+  Future<Map> _getPokeTypes() async {
+    response = await http.get(Uri.parse(
+        'https://vortigo.blob.core.windows.net/files/pokemon/data/types.json'));
+
+    final map1 = json.decode(response.body);
+
+    return map1;
+  }
+
+  void initState() {
+    super.initState();
+    typepokemon = widget.typepokemon;
   }
 
   @override
@@ -29,83 +57,31 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.only(left: 25.0, top: 20.0)),
-              IconButton(
-                onPressed: () async {
-                  setState(() {});
-                },
-                icon: Image.asset(
-                  'images/water.png',
-                  width: 80.0,
-                ),
-              ),
-              const Padding(padding: EdgeInsets.only(left: 40.0, top: 20.0)),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  'images/electric.png',
-                  width: 80.0,
-                ),
-              ),
-              const Padding(padding: EdgeInsets.only(left: 40.0, top: 20.0)),
-              IconButton(
-                  onPressed: () async {
-                    setState(() {});
-                  },
-                  icon: Image.asset('images/fire.png', width: 500.0)),
-              const Padding(padding: EdgeInsets.only(left: 35.0, top: 50.0)),
-              IconButton(
-                  onPressed: () async {
-                    setState(() {});
-                  },
-                  icon: Image.asset('images/normal.png', width: 80.0)),
-            ],
-          ),
-          Row(
-            children: const [
-              Padding(padding: EdgeInsets.only(left: 20.0)),
-              Text('Water', style: TextStyle(fontSize: 20.0)),
-              Padding(
-                  padding: EdgeInsets.only(
-                left: 30.0,
-              )),
-              Text(
-                'Electric',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(
-                left: 40.0,
-              )),
-              Text(
-                'Fire',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(
-                left: 40.0,
-              )),
-              Text(
-                'Normal',
-                style: TextStyle(fontSize: 20.0),
-              )
-            ],
-          ),
+          FutureBuilder(
+              future: _getPokeTypes(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  default:
+                    if (snapshot.hasError) {
+                      return Container();
+                    } else {
+                      return _createIcons(context, snapshot);
+                    }
+                }
+              }),
           Row(children: const [
-            Expanded(
-                child: Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: Text('Pokémon'))),
-            Padding(padding: EdgeInsets.only(top: 20.0), child: Text('Name')),
-            Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Icon(Icons.arrow_upward))
+            Expanded(child: Text('Pokémon')),
+            Text('Name'),
+            Icon(Icons.arrow_upward)
           ]),
           Expanded(
             child: FutureBuilder(
-                future: _getPokemons(),
+                future: _getPokes(typepokemon),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -124,7 +100,7 @@ class _HomeState extends State<Home> {
                       if (snapshot.hasError) {
                         return Container();
                       } else {
-                        return _createPokemons(context, snapshot);
+                        return _createPokeName(context, snapshot);
                       }
                   }
                 }),
@@ -134,23 +110,48 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _createPokemons(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _createPokeName(BuildContext context, AsyncSnapshot snapshot) {
     return ListView.builder(
         itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
             child: ListTile(
                 leading: Image.network(snapshot.data["pokemon"][index]["img"]),
-                onLongPress: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          PokemonInfo(snapshot.data["pokemon"][index])));
-                },
+                // onLongPress: () {
+                //   Navigator.of(context).push(MaterialPageRoute(
+                //       builder: (context) =>
+                //           PokemonInfo(snapshot.data["pokemon"][index])));
+
                 title: Text(
                   snapshot.data["pokemon"][index]["name"],
                   style: const TextStyle(fontSize: 16.0),
                 )),
           );
         });
+  }
+
+  Widget _createIcons(BuildContext context, AsyncSnapshot snapshot) {
+    final list = snapshot.data['results'] as List;
+    return SizedBox(
+      height: 40.0,
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: list.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return _creatIcon(context, list[index]);
+          }),
+    );
+  }
+
+  Widget _creatIcon(BuildContext context, Map<String, dynamic> map) {
+    return GestureDetector(
+      child: SizedBox(
+        height: 50.0,
+        child: Row(
+          children: [Image.network(map['thumbnailImage']), Text(map['name'])],
+        ),
+      ),
+    );
   }
 }
