@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/register2_screen.dart';
 import 'package:http/http.dart' as http;
@@ -117,20 +116,18 @@ class _HomeState extends State<Home> {
         itemBuilder: (context, index) {
           final name = list[index]['pokemon']['name'];
           final url = list[index]['pokemon']['url'];
-          return GestureDetector(
-            child: FutureBuilder<String>(
-                future: _getPokemonIcon(url),
-                builder: (context, snapshot) {
-                  return ListTile(
-                    title: Text(
-                      name,
-                    ),
-                    leading: snapshot.hasData
-                        ? Image.network(snapshot.data)
-                        : const CircularProgressIndicator(),
-                  );
-                }),
-          );
+          return FutureBuilder<String>(
+              future: _getPokemonIcon(url),
+              builder: (context, snapshot) {
+                return ListTile(
+                  title: Text(
+                    name,
+                  ),
+                  leading: snapshot.hasData
+                      ? Image.network(snapshot.data)
+                      : const CircularProgressIndicator(),
+                );
+              });
         });
   }
 

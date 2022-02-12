@@ -59,7 +59,7 @@ class _Register2ScreenState extends State<Register2Screen> {
           const Center(
             child: Padding(
               padding: EdgeInsets.only(top: 50.0, bottom: 200.0),
-              child: Text('Hello , trainer Pokemon!',
+              child: Text('Hello , trainer DEV!',
                   style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -101,9 +101,12 @@ class _Register2ScreenState extends State<Register2Screen> {
         children: [
           Image.network(
             map['thumbnailImage'],
-            width: 80.0,
+            width: 60.0,
           ),
-          Text(map['name'], style: const TextStyle(fontSize: 20.0))
+          Padding(
+            padding: const EdgeInsets.only(left: 14.0),
+            child: Text(map['name'], style: const TextStyle(fontSize: 20.0)),
+          )
         ],
       ),
       onTap: () {

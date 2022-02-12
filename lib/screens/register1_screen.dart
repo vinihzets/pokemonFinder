@@ -12,14 +12,12 @@ class _Register1ScreenState extends State<Register1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.greenAccent,
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
-      body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  'images/treinador7.png',
-                ),
-                fit: BoxFit.fill)),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const Padding(
@@ -47,7 +45,7 @@ class _Register1ScreenState extends State<Register1Screen> {
                   style: TextStyle(color: Colors.black),
                 )),
             const Padding(
-              padding: EdgeInsets.only(top: 250.0),
+              padding: EdgeInsets.only(top: 200.0),
             ),
             IconButton(
               onPressed: () {
@@ -58,7 +56,7 @@ class _Register1ScreenState extends State<Register1Screen> {
               icon: const Icon(
                 Icons.next_plan,
                 size: 50.0,
-                color: Colors.black,
+                color: Colors.greenAccent,
               ),
             ),
           ],
