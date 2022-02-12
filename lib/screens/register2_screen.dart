@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:http/http.dart' as http;
 
 class Register2Screen extends StatefulWidget {
-  const Register2Screen({Key key}) : super(key: key);
+  const Register2Screen({
+    Key key,
+  }) : super(key: key);
 
   @override
   _Register2ScreenState createState() => _Register2ScreenState();
@@ -24,7 +24,7 @@ class _Register2ScreenState extends State<Register2Screen> {
     return jsonMap;
   }
 
-  void _onPressed() {
+  void _onPressedIcon() {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -34,14 +34,12 @@ class _Register2ScreenState extends State<Register2Screen> {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                  return Container(
-                    child: const Center(child: CircularProgressIndicator()),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 default:
                   if (snapshot.hasError) {
                     return Container();
                   } else {
-                    return _createList(context, snapshot);
+                    return _createIcon(context, snapshot);
                   }
               }
             });
@@ -54,7 +52,7 @@ class _Register2ScreenState extends State<Register2Screen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.red[400],
+        backgroundColor: Colors.greenAccent,
       ),
       body: Column(
         children: [
@@ -78,29 +76,35 @@ class _Register2ScreenState extends State<Register2Screen> {
                 color: Colors.black),
           ),
           IconButton(
-              onPressed: _onPressed,
-              icon: Icon(Icons.arrow_right_alt_outlined)),
+              onPressed: _onPressedIcon,
+              icon: const Icon(Icons.arrow_right_alt_outlined)),
           const Padding(padding: EdgeInsets.only(top: 20.0, bottom: 200.0)),
         ],
       ),
     );
   }
 
-  Widget _createList(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _createIcon(BuildContext context, AsyncSnapshot snapshot) {
     final list = snapshot.data['results'] as List;
     return ListView.builder(
         shrinkWrap: true,
         itemCount: list.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
-          return _createLists(context, list[index]);
+          return _createIcons(context, list[index]);
         });
   }
 
-  Widget _createLists(BuildContext context, Map<String, dynamic> map) {
+  Widget _createIcons(BuildContext context, Map<String, dynamic> map) {
     return GestureDetector(
-      child: Column(
-        children: [Image.network(map['thumbnailImage']), Text(map['name'])],
+      child: Row(
+        children: [
+          Image.network(
+            map['thumbnailImage'],
+            width: 80.0,
+          ),
+          Text(map['name'], style: const TextStyle(fontSize: 20.0))
+        ],
       ),
       onTap: () {
         typepokemon = map['name'];

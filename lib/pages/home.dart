@@ -1,21 +1,25 @@
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/register2_screen.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   final dynamic typepokemon;
-  Home({Key key, this.typepokemon}) : super(key: key);
+  const Home({Key key, this.typepokemon}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-String typepokemon;
-
-List pokemons = [];
-
 class _HomeState extends State<Home> {
+  void _onPressioned(String type) {
+    setState(() {});
+    typepokemon = type;
+  }
+
+  List<dynamic> list = [];
+
   http.Response response;
 
   Future<Map> _getPokes(String typepokemon) async {
@@ -26,8 +30,8 @@ class _HomeState extends State<Home> {
     return map;
   }
 
-  Future<String> _getPokemonIcons(String resp) async {
-    response = await http.get(Uri.parse(resp));
+  Future<String> _getPokemonIcon(String pokeUrl) async {
+    response = await http.get(Uri.parse(pokeUrl));
     final map = json.decode(response.body);
     return map['sprites']['front_default'];
   }
@@ -41,6 +45,7 @@ class _HomeState extends State<Home> {
     return map1;
   }
 
+  @override
   void initState() {
     super.initState();
     typepokemon = widget.typepokemon;
@@ -50,29 +55,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pokemon Finder', style: TextStyle(fontSize: 15.0)),
+        title: const Text(
+          'Pokemon Finder',
+        ),
         centerTitle: true,
-        backgroundColor: Colors.red[400],
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        backgroundColor: Colors.greenAccent,
       ),
       body: Column(
         children: [
           FutureBuilder(
               future: _getPokeTypes(),
               builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  default:
-                    if (snapshot.hasError) {
-                      return Container();
-                    } else {
-                      return _createIcons(context, snapshot);
-                    }
+                if (snapshot.hasError || snapshot.data == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
+                return _createIcon(context, snapshot);
               }),
           Row(children: const [
             Expanded(child: Text('Pokémon')),
@@ -81,56 +80,61 @@ class _HomeState extends State<Home> {
           ]),
           Expanded(
             child: FutureBuilder(
-                future: _getPokes(typepokemon),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                    case ConnectionState.none:
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 50.0,
-                        height: 70.0,
-                        child: const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.black),
-                          strokeWidth: 5.0,
-                        ),
-                      );
-                    default:
-                      if (snapshot.hasError) {
-                        return Container();
-                      } else {
-                        return _createPokeName(context, snapshot);
-                      }
-                  }
-                }),
+              future: _getPokes(typepokemon),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.none:
+                    return Container(
+                      alignment: Alignment.center,
+                      width: 50.0,
+                      height: 70.0,
+                      child: const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                        strokeWidth: 5.0,
+                      ),
+                    );
+                  default:
+                    if (snapshot.hasError) {
+                      return Container();
+                    } else {
+                      return _createListPoke(context, snapshot);
+                    }
+                }
+              },
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _createPokeName(BuildContext context, AsyncSnapshot snapshot) {
-    return ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            child: ListTile(
-                leading: Image.network(snapshot.data["pokemon"][index]["img"]),
-                // onLongPress: () {
-                //   Navigator.of(context).push(MaterialPageRoute(
-                //       builder: (context) =>
-                //           PokemonInfo(snapshot.data["pokemon"][index])));
+  Widget _createListPoke(BuildContext context, AsyncSnapshot snapshot) {
+    final list = snapshot.data['pokemon'] as List;
 
-                title: Text(
-                  snapshot.data["pokemon"][index]["name"],
-                  style: const TextStyle(fontSize: 16.0),
-                )),
+    return ListView.builder(
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          final name = list[index]['pokemon']['name'];
+          final url = list[index]['pokemon']['url'];
+          return GestureDetector(
+            child: FutureBuilder<String>(
+                future: _getPokemonIcon(url),
+                builder: (context, snapshot) {
+                  return ListTile(
+                    title: Text(
+                      name,
+                    ),
+                    leading: snapshot.hasData
+                        ? Image.network(snapshot.data)
+                        : const CircularProgressIndicator(),
+                  );
+                }),
           );
         });
   }
 
-  Widget _createIcons(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _createIcon(BuildContext context, AsyncSnapshot snapshot) {
     final list = snapshot.data['results'] as List;
     return SizedBox(
       height: 40.0,
@@ -139,12 +143,12 @@ class _HomeState extends State<Home> {
           itemCount: list.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return _creatIcon(context, list[index]);
+            return _createIcons(context, list[index]);
           }),
     );
   }
 
-  Widget _creatIcon(BuildContext context, Map<String, dynamic> map) {
+  Widget _createIcons(BuildContext context, Map<String, dynamic> map) {
     return GestureDetector(
       child: SizedBox(
         height: 50.0,
@@ -152,6 +156,7 @@ class _HomeState extends State<Home> {
           children: [Image.network(map['thumbnailImage']), Text(map['name'])],
         ),
       ),
+      onTap: () => _onPressioned(map['name']),
     );
   }
 }
