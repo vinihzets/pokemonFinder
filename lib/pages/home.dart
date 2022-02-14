@@ -17,12 +17,8 @@ class _HomeState extends State<Home> {
     typepokemon = type;
   }
 
-  List<dynamic> list = [];
-
-  http.Response response;
-
   Future<Map> _getPokes(String typepokemon) async {
-    response = await http
+    final response = await http
         .get(Uri.parse('https://pokeapi.co/api/v2/type/$typepokemon'));
     final map = json.decode(response.body);
 
@@ -30,13 +26,13 @@ class _HomeState extends State<Home> {
   }
 
   Future<String> _getPokemonIcon(String pokeUrl) async {
-    response = await http.get(Uri.parse(pokeUrl));
+    final response = await http.get(Uri.parse(pokeUrl));
     final map = json.decode(response.body);
     return map['sprites']['front_default'];
   }
 
   Future<Map> _getPokeTypes() async {
-    response = await http.get(Uri.parse(
+    final response = await http.get(Uri.parse(
         'https://vortigo.blob.core.windows.net/files/pokemon/data/types.json'));
 
     final map1 = json.decode(response.body);

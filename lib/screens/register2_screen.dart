@@ -15,13 +15,11 @@ class Register2Screen extends StatefulWidget {
 String typepokemon;
 
 class _Register2ScreenState extends State<Register2Screen> {
-  http.Response response;
   Future<Map> _getTypes() async {
-    response = await http.get(Uri.parse(
+    final response = await http.get(Uri.parse(
         'https://vortigo.blob.core.windows.net/files/pokemon/data/types.json'));
 
-    final jsonMap = json.decode(response.body);
-    return jsonMap;
+    return json.decode(response.body);
   }
 
   void _onPressedIcon() {
